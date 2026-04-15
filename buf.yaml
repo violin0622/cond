@@ -1,0 +1,13 @@
+# For details on buf.yaml configuration, visit https://buf.build/docs/configuration/v2/buf-yaml
+version: v2
+modules:
+  - name: play/my/cond
+    path: proto
+deps:
+  - buf.build/protocolbuffers/wellknowntypes
+lint:
+  use:
+    - STANDARD
+breaking:
+  use:
+    - FILE

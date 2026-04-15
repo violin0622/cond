@@ -1,0 +1,51 @@
+syntax = "proto3";
+package cond.v1;
+
+import "google/protobuf/struct.proto";
+enum Op {
+  option allow_alias = true;
+
+  OP_UNSPECIFIED = 0;
+  OP_EQ = 0;
+  OP_GT = 1;
+  OP_LT = 2;
+  OP_GE = 3;
+  OP_LE = 4;
+  OP_IN = 5;
+  OP_NI = 6;
+  OP_CONTAINS = 6;
+  OP_SIM = 7;
+  OP_MATCH = 7;
+  OP_SUBSET = 8;
+  OP_SUBSETEQ = 9;
+  OP_SUPSET = 10;
+  OP_SUPSETEQ = 11;
+  OP_APPROX = 12;
+}
+
+message Predicate {
+  oneof is {
+    And and = 1;
+    Or or = 2;
+    Not not = 3;
+    Expr expr = 4;
+  }
+}
+
+message And {
+  repeated Predicate pred = 1;
+}
+
+message Or {
+  repeated Predicate pred = 1;
+}
+
+message Not {
+  Predicate pred = 1;
+}
+
+message Expr {
+  Op op = 1;
+  string field = 2;
+  optional google.protobuf.Value value = 3;
+}
